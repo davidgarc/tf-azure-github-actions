@@ -27,6 +27,16 @@ resource "azuread_service_principal" "github_actions" {
   client_id = azuread_application.github_actions.client_id
 }
 
+# Create a federated identity credential for the GitHub Actions app
+resource "azuread_application_federated_identity_credential" "github_actions" {
+  application_id = azuread_application.github_actions.id
+  display_name   = "github-actions-federated"
+  description    = "Federated identity for GitHub Actions"
+  audiences      = ["api://AzureADTokenExchange"]
+  issuer         = "https://token.actions.githubusercontent.com"
+  subject        = "repo:davidgarc/packer-azure-actions:environment:Prod"
+}
+
 # create resource group for packer demo project
 resource "azurerm_resource_group" "packer_demo" {
   name     = "packer-demo"
@@ -46,14 +56,4 @@ resource "azurerm_role_assignment" "contributor" {
   scope                = azurerm_resource_group.packer_demo.id
   role_definition_name = "Contributor"
   principal_id         = azuread_service_principal.github_actions.id
-}
-
-# Create a federated identity credential for the GitHub Actions app
-resource "azuread_application_federated_identity_credential" "github_actions" {
-  application_id = azuread_application.github_actions.id
-  display_name   = "github-actions-federated"
-  description    = "Federated identity for GitHub Actions"
-  audiences      = ["api://AzureADTokenExchange"]
-  issuer         = "https://token.actions.githubusercontent.com"
-  subject        = "repo:davidgarc/packer-azure-actions:environment:Prod"
 }
