@@ -43,7 +43,7 @@ resource "azurerm_shared_image_gallery" "packer_demo" {
 
 # add role contributor to the service principal
 resource "azurerm_role_assignment" "contributor" {
-  scope                = azurerm_shared_image_gallery.packer_demo.id
+  scope                = azurerm_resource_group.packer_demo.id
   role_definition_name = "Contributor"
   principal_id         = azuread_service_principal.github_actions.id
 }
