@@ -27,9 +27,6 @@ resource "azuread_service_principal" "github_actions" {
   client_id = azuread_application.github_actions.client_id
 }
 
-# retrive subscription id
-data "azurerm_subscription" "current" {}
-
 # create resource group for packer demo project
 resource "azurerm_resource_group" "packer_demo" {
   name     = "packer-demo"
@@ -42,10 +39,6 @@ resource "azurerm_shared_image_gallery" "packer_demo" {
   resource_group_name = azurerm_resource_group.packer_demo.name
   location            = azurerm_resource_group.packer_demo.location
   description         = "Shared Image Gallery for Packer Demo"
-
-  sharing {
-    permission = "Private"
-  }
 }
 
 # add role contributor to the service principal
