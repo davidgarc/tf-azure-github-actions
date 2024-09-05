@@ -57,3 +57,20 @@ resource "azurerm_role_assignment" "contributor" {
   role_definition_name = "Contributor"
   principal_id         = azuread_service_principal.github_actions.id
 }
+
+# create shared image
+# The image needs to be created so that packer can use to create versions of the image
+# https://github.com/hashicorp/packer-plugin-azure/issues/69#issuecomment-1211034384
+resource "azurerm_shared_image" "shared_image_packer_demo" {
+  name                = "my-linux-image"
+  gallery_name        = azurerm_shared_image_gallery.packer_demo.name
+  resource_group_name = azurerm_resource_group.packer_demo.name
+  location            = azurerm_resource_group.packer_demo.location
+  os_type             = "Linux"
+
+  identifier {
+    publisher = "MyPublisher"
+    offer     = "MyOffer"
+    sku       = "my-sku"
+  }
+}

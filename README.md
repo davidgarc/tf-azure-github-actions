@@ -1,6 +1,6 @@
 # Packer Azure Actions Project
 
-This project demonstrates the setup of Azure resources and GitHub Actions for building and managing VM images using Packer.
+This project demonstrates the setup of Azure resources for GitHub Actions OIDC integration. It also creates an Azure Shared Image Gallery that can be used to store and manage VM images. It pre-creates an image that Packer can then use to create versions of the image.
 
 ## Overview
 
@@ -11,6 +11,7 @@ This Terraform configuration sets up the necessary Azure resources and permissio
 - Azure Compute Gallery (Shared Image Gallery)
 - Role assignments for the Service Principal
 - Federated identity credential for GitHub Actions
+- Shared Image
 
 ## Prerequisites
 
@@ -48,7 +49,7 @@ After applying the Terraform configuration, you'll receive the following outputs
 - `tenant_id`: The Tenant ID of your Azure subscription
 - `subscription_id`: The Subscription ID of your Azure subscription
 
-Use these values to configure your GitHub Actions workflow for authentication.
+Use these values to configure your GitHub Actions workflow for authentication. Example project: https://github.com/davidgarc/packer-azure-actions
 
 ## GitHub Actions Integration
 
