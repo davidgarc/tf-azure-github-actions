@@ -1,6 +1,7 @@
-# Packer Azure Actions Project
+# Packer Azure Actions Project 
 
-This project demonstrates the setup of Azure resources for GitHub Actions OIDC integration. It also creates an Azure Shared Image Gallery that can be used to store and manage VM images. It pre-creates an image that Packer can then use to create versions of the image.
+This project demonstrates the setup of Azure resources for GitHub Actions OIDC integration. It also creates an Azure Shared Image Gallery that can be used to store and manage VM images. It pre-creates an image that Packer can then use to create versions of the image. 
+
 
 ## Overview
 
